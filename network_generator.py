@@ -128,7 +128,7 @@ def label_by_target(graph, target):
 
 def main():
 	bacteriome = os.getcwd() + os.sep + 'bacteriome_combined.txt'
-	create_targets = os.getcwd() + os.sep + 'CREATE_genetargets.txt'
+	create_targets = os.getcwd() + os.sep + 'genetargets.txt'
 	
 	G = generate_graph(bacteriome)
 	print("network has %d nodes with %d edges" %(nx.number_of_nodes(G), nx.number_of_edges(G)))
