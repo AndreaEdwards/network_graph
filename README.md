@@ -6,9 +6,8 @@ A python script that uses [NetworkX] (https://networkx.github.io/) to make a .pn
 
 ###Example
 
-
-`$ python network_generator.py`
 ```	
+	$ python network_generator.py
 	network has 2275 nodes with 7553 edges
 	Enter the confidence threshold cutoff (0 - 1.0). 0.9
 	network filtered by confidence 0.90 has 619 nodes with 1844 edges
