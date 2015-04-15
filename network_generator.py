@@ -132,10 +132,14 @@ def main():
 	
 	G = generate_graph(bacteriome)
 	print("network has %d nodes with %d edges" %(nx.number_of_nodes(G), nx.number_of_edges(G)))
-	G = filter_by_confidence(G, 0.8)
-	print("network has %d nodes with %d edges" %(nx.number_of_nodes(G), nx.number_of_edges(G)))
-	G = filter_by_degree(G, 10)
-	print("network has %d nodes with %d edges" %(nx.number_of_nodes(G), nx.number_of_edges(G)))
+	
+	confidence_threshold = float(input("Enter the confidence threshold cutoff (0 - 1.0). "))
+	G = filter_by_confidence(G, confidence_threshold)
+	print("network filtered by confidence %.2f has %d nodes with %d edges" %(confidence_threshold, nx.number_of_nodes(G), nx.number_of_edges(G)))
+	
+	node_threshold = int(input("Enter the minimum degree for each node displayed in network. "))
+	G = filter_by_degree(G, node_threshold)
+	print("network filtered by nodes with more than %s connections has %d nodes with %d edges" %(node_threshold, nx.number_of_nodes(G), nx.number_of_edges(G)))
 	
 	node_degree = calculate_degree(G)
 	node_color = highlight_targets(G, create_targets)
@@ -154,7 +158,7 @@ def main():
 		width=0.1)
 	plt.draw()
 
-	plt.savefig('bla.png')
+	plt.savefig('output.png')
 
 
 main()
