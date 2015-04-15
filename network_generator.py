@@ -143,8 +143,8 @@ def main():
 	
 	node_degree = calculate_degree(G)
 	node_color = highlight_targets(G, create_targets)
-	#node_label = label_by_degree(G, 40)
-	node_label = label_by_target(G, create_targets)
+	node_label = label_by_degree(G, 40)
+	#node_label = label_by_target(G, create_targets)
 
 	plt.figure(figsize=(8,8))
 	#node_color = [float(G.degree(node)) for node in G]
