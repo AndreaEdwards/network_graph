@@ -147,7 +147,6 @@ def main():
 	#node_label = label_by_target(G, create_targets)
 
 	plt.figure(figsize=(8,8))
-	#node_color = [float(G.degree(node)) for node in G]
 	nx.draw(G,
 		node_color=[node_color[node] for node in G], 
 		node_size=[node_degree[node] for node in G],
