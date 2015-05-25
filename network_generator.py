@@ -126,6 +126,18 @@ def label_by_target(graph, target):
 	return node_label
 
 
+def label_custom(graph, position, degree_threshold, target):
+	threshold_labels = label_by_degree(graph, degree_threshold)
+	target_labels = label_by_target(graph, target)
+	red_labels = nx.draw_networkx_labels(graph,pos=position, 
+											labels=threshold_labels, 
+											font_color='r')
+	blue_labels = nx.draw_networkx_labels(graph,pos=position, 
+											labels=target_labels, 
+												font_color='b')
+	return red_labels, blue_labels
+
+
 def main():
 	bacteriome = os.getcwd() + os.sep + 'bacteriome_combined.txt'
 	create_targets = os.getcwd() + os.sep + 'genetargets.txt'
@@ -137,27 +149,49 @@ def main():
 	G = filter_by_confidence(G, confidence_threshold)
 	print("network filtered by confidence %.2f has %d nodes with %d edges" %(confidence_threshold, nx.number_of_nodes(G), nx.number_of_edges(G)))
 	
-	node_threshold = int(input("Enter the minimum degree for each node displayed in network. "))
+	node_threshold = int(input("Enter the minimum degree for each node displayed in the network. "))
 	G = filter_by_degree(G, node_threshold)
 	print("network filtered by nodes with more than %s connections has %d nodes with %d edges" %(node_threshold, nx.number_of_nodes(G), nx.number_of_edges(G)))
 	
+	label_threshold = int(input("Enter the minimum degree for each node labeled in the network. "))
+
 	node_degree = calculate_degree(G)
 	node_color = highlight_targets(G, create_targets)
-	node_label = label_by_degree(G, 40)
+	#node_label = label_by_degree(G, 40)
 	#node_label = label_by_target(G, create_targets)
+	pos = nx.spring_layout(G)
 
 	plt.figure(figsize=(8,8))
 	nx.draw(G,
+		pos=pos,
 		node_color=[node_color[node] for node in G], 
 		node_size=[node_degree[node] for node in G],
-		labels=node_label,
-		with_labels=True,
-		font_color='m',
-		font_weight='bold',
+		#labels=node_label,
+		#with_labels=True,
+		#font_color='m',
+		#font_weight='bold',
 		width=0.1)
+	blue_labels_threshold, red_labels_targets = label_custom(G, pos, label_threshold, create_targets)
 	plt.draw()
 
 	plt.savefig('output.png')
 
-
 main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
